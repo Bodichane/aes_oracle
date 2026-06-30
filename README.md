@@ -19,6 +19,15 @@ Le projet est divisé en deux rôles distincts (Architecture Client-Serveur) :
 
 ---
 
+### ⚠️ Note importante pour le Test de l'Attaque
+Par défaut, le serveur est configuré en mode **Sécurisé** (Encrypt-then-MAC actif), ce qui fait échouer le script d'attaque (affichage de caractères aléatoires).
+
+Pour observer l'attaque réussir et déchiffrer le message :
+1. Ouvrez le fichier `serveur.py`.
+2. Changez la variable globale `SECURE_MODE = True` par `SECURE_MODE = False`.
+3. Redémarrez le serveur Flask et relancez `attaque.py`. Le texte clair d'origine s'affichera alors avec succès.
+
+
 ## Installation et Lancement
 
 ### Prérequis

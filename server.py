@@ -8,6 +8,7 @@ from flask import Flask, jsonify, request
 key = get_random_bytes(16)
 mac_key = get_random_bytes(32)
 iv = get_random_bytes(16)
+SECURE_MODE = True
 
 app = Flask(__name__)
 
@@ -40,13 +41,14 @@ def oracle():
     mac_hex = data.get('mac')
 
     ct_bytes = bytes.fromhex(ct_hex)
-    mac_bytes = bytes.fromhex(mac_hex)
-
-    mac_object = HMAC.new(mac_key, ct_bytes, digestmod=SHA256)
-    try: 
-        mac_object.verify(mac_bytes)
-    except ValueError:
-        return "Invalid HMAC, altered message", 403
+    
+    if SECURE_MODE:
+        mac_bytes = bytes.fromhex(mac_hex)
+        mac_object = HMAC.new(mac_key, ct_bytes, digestmod=SHA256)
+        try: 
+            mac_object.verify(mac_bytes)
+        except ValueError:
+            return "Invalid HMAC, altered message", 403
     
     try:
         decrypt_cbc(ct_bytes)
