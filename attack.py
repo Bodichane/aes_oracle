@@ -1,9 +1,10 @@
 import requests
 
+original_mac_hex = ""
 
 def oracle(ct_bytes):
     ct_hex = ct_bytes.hex()
-    payload = {"ciphertext": ct_hex}
+    payload = {'ciphertext': ct_hex, 'mac': original_mac_hex}
     reponse = requests.post("http://127.0.0.1:5000/oracle", json=payload)
     
     if reponse.status_code == 200:
@@ -42,6 +43,7 @@ def attack_block(ct):
 
 data = requests.get("http://127.0.0.1:5000/get_challenge").json()
 ct_hex = data.get('ciphertext')
+mac_hex = data.get('mac')
 ct_bytes = bytes.fromhex(ct_hex)
 pt = attack_block(ct_bytes)
 
