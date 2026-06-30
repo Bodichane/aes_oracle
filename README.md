@@ -4,7 +4,7 @@ Ce projet implémente une simulation complète d'une **attaque par oracle de rem
 
 ---
 
-## 🎯 Objectifs du Projet
+## Objectifs du Projet
 - **Comprendre le mode CBC** : Exploiter les propriétés mathématiques de l'opération XOR après le déchiffrement AES.
 - **Simuler un environnement réel** : Développer un serveur web Flask local jouant le rôle de l'oracle vulnérable.
 - **Automatiser l'attaque** : Concevoir un script client capable de deviner le texte clair octet par octet via des requêtes HTTP.
@@ -12,14 +12,14 @@ Ce projet implémente une simulation complète d'une **attaque par oracle de rem
 
 ---
 
-## 📁 Structure du Projet
+## Structure du Projet
 Le projet est divisé en deux rôles distincts (Architecture Client-Serveur) :
 - `serveur.py` : L'application Flask locale. Elle détient la clé secrète AES et la clé MAC globale. Elle expose l'endpoint du défi chiffré et l'oracle de validation.
 - `attaque.py` : Le script client offensif. Il récupère le texte chiffré mystère et interroge l'oracle en modifiant le vecteur d'initialisation (IV) pour extraire le texte clair.
 
 ---
 
-## ⚙️ Installation et Lancement
+## Installation et Lancement
 
 ### Prérequis
 Assurez-vous d'avoir Python 3 installé, ainsi que les dépendances suivantes :
@@ -42,7 +42,7 @@ python attaque.py
 
 ---
 
-## 🧠 Comment fonctionne l'attaque ?
+## Comment fonctionne l'attaque ?
 
 ### 1. Le mécanisme standard d'AES-CBC
 Le mode CBC (Cipher Block Chaining) enchaîne les blocs de données en appliquant une opération XOR.
@@ -66,7 +66,7 @@ Une fois l'état intermédiaire $I$ entièrement reconstruit, le vrai texte clai
 
 ---
 
-## 🛡️ Contre-mesure : Encrypt-then-MAC (EtM)
+## Contre-mesure : Encrypt-then-MAC (EtM)
 
 Pour neutraliser l'attaque, le serveur a été mis à niveau avec l'approche **Encrypt-then-MAC**.
 
@@ -80,7 +80,7 @@ Une fois le pare-feu HMAC activé, le script d'attaque est instantanément aveug
 
 ---
 
-## 📚 Liens avec la Cybersécurité réelle
+## Liens avec la Cybersécurité réelle
 Cette vulnérabilité théorique a lourdement impacté la production mondiale par le passé. Elle est directement liée aux failles célèbres qui ont brisé les anciennes versions de SSL/TLS :
 - **BEAST (2011)** sur TLS 1.0
 - **POODLE (2014)** sur SSL 3.0
